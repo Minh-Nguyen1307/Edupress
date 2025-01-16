@@ -1,0 +1,52 @@
+.Sign_in_form {
+   
+    width:800px;
+    height:500px;
+    background: white;
+    border:1px solid;
+    border-radius: 5px;
+    padding:30px
+   
+    
+   
+}
+.form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:100vh;
+    width: 100vw;
+    
+}
+div.inputs {
+    display: flex;
+    flex-direction: column;
+    gap:30px
+}
+.specialinput{
+    font-size: 18px;
+    line-height: 150%;
+    padding:10px 24px;
+    border:1px solid;
+    border-radius: 8px;
+    border-color: #FF782D;
+    outline:none;
+    width:570px;
+   
+}
+div.form button {
+    width:570px;
+    background-color: #FF782D;
+    border-radius: 24px;
+    color:white
+
+}
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 100 to 900
+
+.exo .form {
+    font-family: "Exo", serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+  }
