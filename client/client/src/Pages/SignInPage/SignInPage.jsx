@@ -3,13 +3,12 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
-import { useGoogleLogin } from "@react-oauth/google";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 
 const SECRET_KEY = import.meta.env.VITE_SECRET_KEY; 
-const GG_SECRET_KEY = import.meta.GOOGLE_SECRET_KEY;
+
 
 const encryptPassword = (password) => {
   return CryptoJS.AES.encrypt(password, SECRET_KEY).toString();
@@ -90,46 +89,7 @@ export default function SignInPage() {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
-  const login = useGoogleLogin({
-    flow: 'redirect',
-    onSuccess: (tokenResponse) => {
-      
-      var response = jwtDecode(tokenResponse.credential)
-      console.log("Login Successful!", response);
-      handleGoogleLogin(response);
 
-    },
-    onError: (error) => {
-      console.log("Login Failed", error);
-    },
-  });
-  const handleGoogleLogin = async (user) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/signInGoogle`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: user.email,
-      
-          googleId: user.sub, 
-        }),
-      });
-  
-      const data = await response.json();
-      if (data.success) {
-        console.log("Login successful:", data);
-        localStorage.setItem("authToken", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-      } else {
-        console.error("Login failed:", data.message);
-      }
-    } catch (error) {
-      console.error("Error during Google login:", error);
-    }
-  };
-  
   const handleForm = async (e) => {
     e.preventDefault();
     setErrorLogIn("");
@@ -242,8 +202,8 @@ export default function SignInPage() {
         <div className="mb-10 w-full flex justify-center items-center flex-col">
           <div className="flex justify-center text-blue-500 mb-5">Forgot Password?</div>
           <Link to="/signin" className="flex justify-center">
-            <button className="bg-gray-200 rounded-2xl w-1/2 flex justify-center items-center hover:bg-gray-500" onClick={() => login()}>
-              <span className="text-lg font-medium hover:text-red-800 w-fit mr-3 p-2" >
+            <button className="bg-gray-200 rounded-2xl w-1/2 flex justify-center items-center hover:bg-gray-500">
+              <span className="text-lg font-medium hover:text-red-800 w-fit mr-3 p-2">
                 Log In with 
               </span>
               <img src="1.png" alt="Signup with" className="w-24" />

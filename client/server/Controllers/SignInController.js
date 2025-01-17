@@ -86,18 +86,3 @@ export const signInAdmin = async (req, res, next) => {
       next(error);
     }
   };
-export const SignInGoogle = async (req,res,next) => {
-  const {email,googleId} = req.body;
-  try {
-    let user = await UserModels.find({email});
-    if (!user) {
-      res.status(400).send({
-        message:"User not found"
-      })
-    }
-    const token = generateToken(user._id);
-    res.status(200).send({ success: true, token, user });
-  } catch(error) {
-    console.log(message.error);
-  }
-}
